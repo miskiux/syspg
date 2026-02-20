@@ -1,0 +1,8 @@
+apiVersion: v2
+name: local-platform
+type: application
+
+version: 1.0.0
+description: ""
+
+icon: ""
