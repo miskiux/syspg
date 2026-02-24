@@ -1,11 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: postgres
+  name: {{ .Release.Name }}-postgres
   namespace: {{ .Release.Namespace }}
   labels:
     app: postgres
-    env: {{ .Values.environment | default "dev" }}
+    env: {{ .Values.environment }}
 spec:
   replicas: {{ .Values.postgres.podReplicas }}
   selector:

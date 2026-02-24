@@ -1,0 +1,13 @@
+# Virtual environment
+.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment variables (contains secrets!)
+.env
+
+# uv specific (Optional: only if you want to ignore the tool's cache)
+.uv/

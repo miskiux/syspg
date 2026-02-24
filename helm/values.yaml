@@ -3,8 +3,8 @@ environment: "dev"
 postgres:
   image:
     repository: postgres
-    pullPolicy: IfNotPresent
     tag: "17"
+    pullPolicy: IfNotPresent
   podReplicas: 1
   hostName: "localhost"
   env:
@@ -32,3 +32,48 @@ postgres:
       cpu: 1        
       memory: 1Gi  
       storage: 10Gi
+
+
+sysbench-prepare:
+  enabled: true                           
+  # Job configuration
+  restartPolicy: Never                   
+
+  image:
+    repository: ghcr.io/ibm/mcp-context-forge
+    tag: latest                             
+    pullPolicy: IfNotPresent                 
+
+  resources:
+    limits:
+      cpu: 200m
+      memory: 512Mi
+    requests:
+      cpu: 100m
+      memory: 256Mi
+
+  command:
+    wait: "python3 /app/mcpgateway/utils/db_isready.py --max-tries 30 --interval 2 --timeout 5"
+    prepare: "python3 -m mcpgateway.bootstrap_db"
+
+sysbench-run:
+  enabled: true                           
+  # Job configuration
+  restartPolicy: Never                   
+
+  image:
+    repository: ghcr.io/ibm/mcp-context-forge
+    tag: latest                             
+    pullPolicy: IfNotPresent                 
+
+  resources:
+    limits:
+      cpu: 200m
+      memory: 512Mi
+    requests:
+      cpu: 100m
+      memory: 256Mi
+
+  command:
+    wait: "python3 /app/mcpgateway/utils/db_isready.py --max-tries 30 --interval 2 --timeout 5"
+    prepare: "python3 -m mcpgateway.bootstrap_db"

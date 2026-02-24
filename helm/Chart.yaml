@@ -1,5 +1,5 @@
 apiVersion: v2
-name: local-platform
+name: syspg
 type: application
 
 version: 1.0.0
