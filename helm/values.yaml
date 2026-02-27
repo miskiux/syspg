@@ -18,31 +18,38 @@ postgres:
       value: "user"
     - name: POSTGRES_PASSWORD
       value: "welcome123"
-      
+
   containerPort:
     tcp:
       name: tcp
       port: 5432
   resources:
     requests:
-      cpu: 1       
+      cpu: 1
       memory: 512Mi
       storage: 1Gi
-    limits:   
-      cpu: 1        
-      memory: 1Gi  
+    limits:
+      cpu: 1
+      memory: 1Gi
       storage: 10Gi
 
-
-sysbench-prepare:
-  enabled: true                           
-  # Job configuration
-  restartPolicy: Never                   
-
+sysbench:
+  restartPolicy: Never
   image:
-    repository: ghcr.io/ibm/mcp-context-forge
-    tag: latest                             
-    pullPolicy: IfNotPresent                 
+    repository: syspg/sysbench
+    tag: latest
+    pullPolicy: IfNotPresent
+  env:
+    - name: PG_HOST
+      value: "localhost"
+    - name: PG_PORT
+      value: "5432"
+    - name: POSTGRES_DB
+      value: "postgres"
+    - name: POSTGRES_USER
+      value: "user"
+    - name: POSTGRES_PASSWORD
+      value: "welcome123"
 
   resources:
     limits:
@@ -53,27 +60,5 @@ sysbench-prepare:
       memory: 256Mi
 
   command:
-    wait: "python3 /app/mcpgateway/utils/db_isready.py --max-tries 30 --interval 2 --timeout 5"
-    prepare: "python3 -m mcpgateway.bootstrap_db"
-
-sysbench-run:
-  enabled: true                           
-  # Job configuration
-  restartPolicy: Never                   
-
-  image:
-    repository: ghcr.io/ibm/mcp-context-forge
-    tag: latest                             
-    pullPolicy: IfNotPresent                 
-
-  resources:
-    limits:
-      cpu: 200m
-      memory: 512Mi
-    requests:
-      cpu: 100m
-      memory: 256Mi
-
-  command:
-    wait: "python3 /app/mcpgateway/utils/db_isready.py --max-tries 30 --interval 2 --timeout 5"
-    prepare: "python3 -m mcpgateway.bootstrap_db"
+    wait: ""
+    run: "/sysbench/runner"

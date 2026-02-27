@@ -10,6 +10,3 @@ spec:
         - name: sysbench
           image: "{{ .Values.sysbench.image.repository }}:{{ .Values.sysbench.image.tag | default "latest" }}"
           command: ["/bin/bash", "-c"]
-          args:
-            - |
-              sysbench oltp_common --db-driver=pgsql --pgsql-host=postgres-svc --pgsql-user=admin --pgsql-password=$DB_PASS prepare

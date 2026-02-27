@@ -1,4 +1,4 @@
-profile: "oltp_read_write"
+test_alias: "oltp_read_write"
 description: "Standard OLTP Load"
 settings:
   tables: 1

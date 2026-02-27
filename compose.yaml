@@ -1,0 +1,41 @@
+networks:
+  syspgnet:
+    driver: bridge
+
+volumes:               
+  pgdata:
+
+services:
+  postgres:
+    image: postgres:17
+    restart: unless-stopped
+    networks: [syspgnet]
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: ${DB_NAME:-postgres}
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-welcome123}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-postgres}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+  sysbench:
+    build:
+      context: ./sysbench
+      dockerfile: Dockerfile
+    image: syspg/sysbench:latest
+    networks: [syspgnet]
+    environment:
+      - DB_NAME = ${DB_NAME:-postgres}
+      - DB_USER = ${DB_USER:-postgres}
+      - DB_PASSWORD = ${DB_PASSWORD:-welcome123}
+      - DB_HOST = postgres
+      - DB_PORT = 5432
+      - TEST_SUITE = ${TEST_SUITE}
+    depends_on:
+      postgres:
+        condition: service_healthy

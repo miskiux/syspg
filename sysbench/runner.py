@@ -1,23 +1,27 @@
 from dataclasses import asdict
+import logging
 import subprocess
+from enum import Enum
+from config import BenchmarkConfig
 
-from sysbench.config import db_host, db_user, db_password, db_name, BenchmarkConfig 
+logging.getLogger(__name__).setLevel(logging.INFO)
 
-class Command():
+class Command(str, Enum):
     PREPARE = "prepare"
     RUN = "run"
     CLEANUP = "cleanup"
     HELP = "help"
 
 class SysbenchRunner:
-    def __init__(self, config: BenchmarkConfig = BenchmarkConfig()):
+    def __init__(self, config: BenchmarkConfig):
         self.config = config
+        self.workload = config.workload
 
         self.flags = [
-            f"--pgsql-host={db_host}",
-            f"--pgsql-user={db_user}",
-            f"--pgsql-password={db_password}",
-            f"--pgsql-db={db_name}",
+            f"--pgsql-host={config.db_host}",
+            f"--pgsql-user={config.db_user}",
+            f"--pgsql-password={config.db_password}",
+            f"--pgsql-db={config.db_name}",
             "--db-driver=pgsql",
         ]
 
@@ -26,7 +30,7 @@ class SysbenchRunner:
             self.flags.append(f"--{flag_name}={value}")
 
     def _execute(self, command: Command):
-        cmd = ["sysbench"] + [self.config.profile] + self.flags + [command.value]
+        cmd = ["sysbench"]  + self.flags + [self.workload, command.value]
         
         try:
             result = subprocess.run(
@@ -55,5 +59,13 @@ class SysbenchRunner:
 
 
 if __name__ == "__main__":
-  runner = SysbenchRunner()
-  runner.run()
+  try:
+    config = BenchmarkConfig.load()
+    logging.info(f"Starting Benchmark: {config}")
+
+    runner = SysbenchRunner(config)
+    logging.info("Sysbench runner started...")
+    runner.run()
+    logging.info("Benchmark finished successfully.")
+  except Exception as e:
+    logging.error(f"Benchmark failed: {e}", exc_info=True)

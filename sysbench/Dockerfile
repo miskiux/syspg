@@ -14,4 +14,4 @@ ENV PATH="/sysbench/.venv/bin:$PATH"
 
 COPY . .
 
-CMD ["python3"]
+CMD ["python3", "/sysbench/runner.py"]
