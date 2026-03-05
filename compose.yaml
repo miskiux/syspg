@@ -30,12 +30,12 @@ services:
     image: syspg/sysbench:latest
     networks: [syspgnet]
     environment:
-      - DB_NAME = ${DB_NAME:-postgres}
-      - DB_USER = ${DB_USER:-postgres}
-      - DB_PASSWORD = ${DB_PASSWORD:-welcome123}
-      - DB_HOST = postgres
-      - DB_PORT = 5432
-      - TEST_SUITE = ${TEST_SUITE}
+      - DB_NAME=${DB_NAME:-postgres}
+      - DB_USER=${DB_USER:-postgres}
+      - DB_PASSWORD=${DB_PASSWORD:-welcome123}
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - TEST_SUITE=${TEST_SUITE}
     depends_on:
       postgres:
         condition: service_healthy

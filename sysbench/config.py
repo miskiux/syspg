@@ -4,11 +4,16 @@ from pathlib import Path
 
 import yaml
 
+
 base_dir = Path(__file__).resolve().parent
+
+BENCHMARKS = {
+    "db": "oltp_read_write"
+}
 
 @dataclass    
 class BenchmarkConfig:
-    workload: str = ""
+    test_name = BENCHMARKS.get(os.getenv("TEST_SUITE"))
     settings: dict[str, any] = field(default_factory=dict)
 
     db_name = os.getenv("DB_NAME")
@@ -19,17 +24,14 @@ class BenchmarkConfig:
 
     @classmethod
     def load(cls):
-        test_suite = os.getenv("TEST_SUITE")
-        filepath = base_dir / f"{test_suite}.yaml"       
+        filepath = base_dir / f"{cls.test_name}.yaml"       
 
         if filepath.exists():
             with open(filepath, "r") as f:
                 raw = yaml.safe_load(f)
 
-            workload = raw.get("test_alias") or raw.get("script")
-
             return cls(
-            workload=workload,
+            cls.test_name,
             settings=raw.get("settings"),
         )
         
