@@ -4,6 +4,7 @@ networks:
 
 volumes:               
   pgdata:
+  system-pgdata:
 
 services:
   postgres:
@@ -11,7 +12,7 @@ services:
     restart: unless-stopped
     networks: [syspgnet]
     ports:
-      - "5432:5432"
+      - "5435:5432"
     environment:
       POSTGRES_DB: ${DB_NAME:-postgres}
       POSTGRES_USER: ${DB_USER:-postgres}

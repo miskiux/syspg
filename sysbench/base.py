@@ -1,39 +1,36 @@
-from abc import ABC, abstractmethod
 import argparse
-import logging
-import os
 import subprocess
+from abc import ABC, abstractmethod
 from enum import Enum
 from params import Params
+from env import db_host, db_name, db_password, db_user
+from context import Context, bootstrap_context
 
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
 
 class Command(str, Enum):
     Prepare = "prepare"
     Run = "run"
 
 class BaseSysbench(ABC):
-    def __init__(self):
-        self.params = Params()
+    def __init__(self, ctx: Context):
+        self.ctx = ctx
+        self.log = self.ctx.logger.getChild(self.__class__.__name__)
 
         parser = argparse.ArgumentParser()
         parser.add_argument("-t", "--test", dest="test_name", required=True)
-        
         self.args = parser.parse_args()
         self.test_name = self.args.test_name
 
-        t = self.test_name
+        self.params = Params()
         p = self.params
+        t = self.test_name
+
         self.flags = [
             # infrastructure (env)
-            f"--pgsql-host={os.getenv('DB_HOST')}",
-            f"--pgsql-user={os.getenv('DB_USER')}",
-            f"--pgsql-password={os.getenv('DB_PASSWORD')}",
-            f"--pgsql-db={os.getenv('DB_NAME')}",
+            f"--pgsql-host={db_host}",
+            f"--pgsql-user={db_user}",
+            f"--pgsql-password={db_password}",
+            f"--pgsql-db={db_name}",
             "--db-driver=pgsql",
             # test tuning (params volume with defaults)
             f"--threads={p.get(t, 'threads', '8')}",
@@ -48,8 +45,7 @@ class BaseSysbench(ABC):
         Executes a sysbench command as a subprocess.
         """
         cmd = ["sysbench"] + self.flags + [self.test_name, command.value]
-        
-        logging.info(f"Invoking sysbench {command.value} for {self.test_name}")
+        self.log.info(f"sysbench command - {command.value}. test suite - {self.test_name}")
         
         try:
             subprocess.run(
@@ -58,20 +54,8 @@ class BaseSysbench(ABC):
                 check=True
             )
         except subprocess.CalledProcessError as e:
-            # sysbench often puts specific DB errors in stderr (e.g., connection refused)
-            logging.error(f"Sysbench {command.value} failed: {e.stderr.strip()}")
+            self.log.error(f"sysbench command - {command.value} failed. error - {e.stderr.strip()}")
             raise
-
-    def query(self, sql: str):
-        """
-        Executes maintenance SQL directly on the target database.
-        
-        Used for Percona-style preparation steps (VACUUM, ANALYZE, CHECKPOINT)
-        to ensure the DB state is optimized before the benchmark 'run' begins.
-        """
-        logging.info(f"Executing maintenance SQL: {sql}")
-        # Note: Implement using a pg-client or psycopg2 to ensure the DB 
-        # actually receives and completes the command.
 
     @abstractmethod
     def run_task(self):
@@ -82,3 +66,13 @@ class BaseSysbench(ABC):
         sysbench actions, and database maintenance required for the task.
         """
         pass
+
+    @classmethod
+    def main(cls):
+        try:
+            ctx = bootstrap_context()
+
+            app = cls(ctx)
+            app.run_task()
+        except Exception:
+            exit(1)
