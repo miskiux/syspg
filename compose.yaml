@@ -3,8 +3,8 @@ networks:
     driver: bridge
 
 volumes:               
-  pgdata:
-  system-pgdata:
+  postgres-data:
+  postgres-system-data:
 
 services:
   postgres:
@@ -18,7 +18,7 @@ services:
       POSTGRES_USER: ${DB_USER:-postgres}
       POSTGRES_PASSWORD: ${DB_PASSWORD:-welcome123}
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
       - ./sysbench/config/sql/init-ext.sql:/docker-entrypoint-initdb.d/init-ext.sql
     # temp 
     command: ["postgres", "-c", "shared_preload_libraries=pg_stat_statements,pg_prewarm"]
