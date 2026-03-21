@@ -12,4 +12,4 @@ __pycache__/
 # uv specific (Optional: only if you want to ignore the tool's cache)
 .uv/
 
-sysbench/output
+sysbench/stdout

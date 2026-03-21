@@ -8,31 +8,29 @@ from base import BaseSysbench, Command
 
 class Run(BaseSysbench):
     def run_task(self):
-        output_dir = "/output"
+        output_dir = "/stdout"
         file_name = (
             f"{self.test_name}_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.json"
         )
         output_path = os.path.join(output_dir, file_name)
 
-        self.log.info("Benchmark starting")
-
         try:
             stdout = self.execute(Command.Run)
-            data = self.collect_pg_data(stdout)
+            stats = self.collect_stats(stdout)
 
             os.makedirs(output_dir, exist_ok=True)
             with open(output_path, "w") as f:
-                json.dump({**data}, f, indent=4, default=str)
+                json.dump({**stats}, f, indent=4, default=str)
 
             self.log.info(
-                "Benchmark complete. Output path:%s",
+                "Output path:%s",
                 output_path,
             )
 
         except Exception as e:
             self.log.error(e)
 
-    def collect_pg_data(self, stdout):
+    def collect_stats(self, stdout):
         stat_statements = self.ctx.db.query("""
                 SELECT 
                     query, 
@@ -47,7 +45,7 @@ class Run(BaseSysbench):
                 LIMIT 20;
             """).fetchall()
 
-        sysb_stdout = {
+        sb_metrics = {
             "tps_count": self.match(r"transactions:\s+(\d+)", stdout),
             "tps_rate": self.match(r"transactions:.*?\((\d+\.\d+) per sec\.\)", stdout),
             "qps_count": self.match(r"queries:\s+(\d+)", stdout),
@@ -82,15 +80,18 @@ class Run(BaseSysbench):
         }
 
         it = iter(re.split(r"\[\s*(\d+)s\s*\]", stdout)[1:])
-        sysb_timeline = [
+        sb_time_series = [
             {"second": int(ts), "data": data.strip()} for ts, data in zip(it, it)
         ]
 
         return {
-            "sysb_stdout": sysb_stdout,
-            "sysb_timeline": sysb_timeline,
-            "stat_statements": stat_statements,
-            "raw_output": stdout,
+            "metadata": {
+                # hardware, postgresql.conf
+            },
+            "summary_metrics": sb_metrics,
+            "time_series_data": sb_time_series,
+            "query_statistics": stat_statements,
+            "execution_log": stdout,
         }
 
     def match(self, pattern, content):

@@ -3,9 +3,10 @@ import subprocess
 
 from base import BaseSysbench, Command
 
+
 class Prepare(BaseSysbench):
     def run_task(self):
-        try:        
+        try:
             self.seed()
             self.maintenance()
             self.prewarm()
@@ -22,8 +23,8 @@ class Prepare(BaseSysbench):
             self.log.error("Seed failed. Error: %s", e)
 
     def maintenance(self):
-        """ 
-        percona benchmark prep guidelines: CHECKPOINT, VACUUM ANALYZE.
+        """
+        Percona benchmark prep guidelines: CHECKPOINT, VACUUM ANALYZE.
         """
         workers = os.cpu_count() or 1
         cmd = ["vacuumdb", "-j", str(workers), "-z", "-v", "--dbname", self.ctx.db.dsn]
@@ -31,21 +32,26 @@ class Prepare(BaseSysbench):
         try:
             self.ctx.db.query("CHECKPOINT")
             self.log.info("Postgres CHECKPOINT issued successfully")
-            
+
             result = subprocess.run(cmd, check=True, capture_output=True, text=True)
             self.log.info("Vacuum output: %s", result.stdout)
-            
+
         except subprocess.CalledProcessError as e:
-            self.log.error("Maintenance failed. Exit code: %s | Error: %s", e.returncode, e.stderr)
-            raise       
+            self.log.error(
+                "Maintenance failed. Exit code: %s | Error: %s", e.returncode, e.stderr
+            )
+            raise
 
     def prewarm(self):
-        result = self.ctx.db.query("SELECT tablename FROM pg_tables WHERE tablename LIKE 'sbtest%'").fetchall()
+        result = self.ctx.db.query(
+            "SELECT tablename FROM pg_tables WHERE tablename LIKE 'sbtest%'"
+        ).fetchall()
 
         for row in result:
-            self.ctx.db.query(f"SELECT pg_prewarm('{row["tablename"]}')")
-        
+            self.ctx.db.query(f"SELECT pg_prewarm('{row['tablename']}')")
+
         self.log.info("Prewarm sequence for %s tables finished", len(result))
 
+
 if __name__ == "__main__":
-   Prepare.main()
+    Prepare.main()

@@ -4,7 +4,7 @@ RUN apt-get update && apt-get install -y sysbench postgresql-client && rm -rf /v
 
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
-WORKDIR /home
+WORKDIR /app
 COPY pyproject.toml uv.lock ./
 
 RUN uv sync --frozen --no-install-project
