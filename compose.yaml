@@ -102,7 +102,7 @@ services:
     ports:
       - "9187:9187"
     volumes:
-      - ./monitoring/queries.yaml:/etc/postgres_exporter/queries.yaml
+      - ./monitor/queries.yaml:/etc/postgres_exporter/queries.yaml
     command:
       - "--extend.query-path=/etc/postgres_exporter/queries.yaml"
     environment:
