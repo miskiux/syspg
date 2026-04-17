@@ -1,0 +1,221 @@
+{
+    "storage_usage": [
+        {
+            "pg_size_pretty": "219 MB"
+        }
+    ],
+    "metadata": {
+        "test": "oltp_read_write",
+        "threads": "8",
+        "tables": "8",
+        "table-size": "100000",
+        "time": "60",
+        "report-interval": "1"
+    },
+    "sysb_metrics": {
+        "tps_count": 53868,
+        "tps_rate": 897.56,
+        "qps_count": 1077504,
+        "qps_rate": 17953.63,
+        "errors_count": 8,
+        "errors_rate": 0.13,
+        "reconnects_count": 0,
+        "reconnects_rate": 0.0,
+        "avg_lat": 8.91,
+        "p95_lat": 13.95,
+        "max_lat": 139.06,
+        "min_lat": 3.14,
+        "sum_lat": 479863.78,
+        "total_events": 53868,
+        "read": 754264,
+        "write": 215470,
+        "other": 107770,
+        "events_avg": 6733.5,
+        "events_stddev": 18.62,
+        "execution_avg": 59.983,
+        "execution_stddev": 0.0
+    },
+    "pg_ss": [
+        {
+            "query": "SELECT DISTINCT c FROM sbtest2 WHERE id BETWEEN $1 AND $2 ORDER BY c",
+            "calls": 6815,
+            "rows": 681500,
+            "shared_blks_hit": 487223,
+            "shared_blks_read": 151,
+            "mean_exec_time": 0.4145378255319157,
+            "stddev_exec_time": 0.994998089993224
+        },
+        {
+            "query": "SELECT DISTINCT c FROM sbtest7 WHERE id BETWEEN $1 AND $2 ORDER BY c",
+            "calls": 6790,
+            "rows": 679000,
+            "shared_blks_hit": 486492,
+            "shared_blks_read": 23,
+            "mean_exec_time": 0.4047999197349044,
+            "stddev_exec_time": 0.3859728431219761
+        },
+        {
+            "query": "SELECT DISTINCT c FROM sbtest6 WHERE id BETWEEN $1 AND $2 ORDER BY c",
+            "calls": 6754,
+            "rows": 675400,
+            "shared_blks_hit": 480154,
+            "shared_blks_read": 177,
+            "mean_exec_time": 0.4047035199881539,
+            "stddev_exec_time": 0.33035769023440986
+        },
+        {
+            "query": "SELECT DISTINCT c FROM sbtest5 WHERE id BETWEEN $1 AND $2 ORDER BY c",
+            "calls": 6779,
+            "rows": 677900,
+            "shared_blks_hit": 485188,
+            "shared_blks_read": 63,
+            "mean_exec_time": 0.39820101401386654,
+            "stddev_exec_time": 0.2549498827281998
+        },
+        {
+            "query": "SELECT DISTINCT c FROM sbtest1 WHERE id BETWEEN $1 AND $2 ORDER BY c",
+            "calls": 6772,
+            "rows": 677200,
+            "shared_blks_hit": 478653,
+            "shared_blks_read": 16,
+            "mean_exec_time": 0.3947000716184285,
+            "stddev_exec_time": 0.19168027563863313
+        },
+        {
+            "query": "SELECT DISTINCT c FROM sbtest3 WHERE id BETWEEN $1 AND $2 ORDER BY c",
+            "calls": 6666,
+            "rows": 666600,
+            "shared_blks_hit": 471200,
+            "shared_blks_read": 137,
+            "mean_exec_time": 0.3994314023402328,
+            "stddev_exec_time": 0.27256013380849414
+        },
+        {
+            "query": "SELECT DISTINCT c FROM sbtest4 WHERE id BETWEEN $1 AND $2 ORDER BY c",
+            "calls": 6606,
+            "rows": 660600,
+            "shared_blks_hit": 470291,
+            "shared_blks_read": 82,
+            "mean_exec_time": 0.4028182882228287,
+            "stddev_exec_time": 0.28431385689751193
+        },
+        {
+            "query": "SELECT DISTINCT c FROM sbtest8 WHERE id BETWEEN $1 AND $2 ORDER BY c",
+            "calls": 6694,
+            "rows": 669400,
+            "shared_blks_hit": 477746,
+            "shared_blks_read": 196,
+            "mean_exec_time": 0.39733348804899893,
+            "stddev_exec_time": 0.211813138911036
+        },
+        {
+            "query": "SELECT c FROM sbtest4 WHERE id BETWEEN $1 AND $2 ORDER BY c",
+            "calls": 6770,
+            "rows": 677000,
+            "shared_blks_hit": 483376,
+            "shared_blks_read": 95,
+            "mean_exec_time": 0.3710429992614459,
+            "stddev_exec_time": 0.7636672235038393
+        },
+        {
+            "query": "SELECT c FROM sbtest3 WHERE id BETWEEN $1 AND $2 ORDER BY c",
+            "calls": 6776,
+            "rows": 677600,
+            "shared_blks_hit": 483125,
+            "shared_blks_read": 100,
+            "mean_exec_time": 0.36802728527154704,
+            "stddev_exec_time": 0.2796744992053085
+        },
+        {
+            "query": "SELECT c FROM sbtest6 WHERE id BETWEEN $1 AND $2 ORDER BY c",
+            "calls": 6773,
+            "rows": 677300,
+            "shared_blks_hit": 479444,
+            "shared_blks_read": 212,
+            "mean_exec_time": 0.36481410792853997,
+            "stddev_exec_time": 0.34157522741128143
+        },
+        {
+            "query": "SELECT c FROM sbtest5 WHERE id BETWEEN $1 AND $2 ORDER BY c",
+            "calls": 6681,
+            "rows": 668100,
+            "shared_blks_hit": 481753,
+            "shared_blks_read": 48,
+            "mean_exec_time": 0.3695783586289475,
+            "stddev_exec_time": 0.6005477371976915
+        },
+        {
+            "query": "SELECT c FROM sbtest8 WHERE id BETWEEN $1 AND $2 ORDER BY c",
+            "calls": 6810,
+            "rows": 681000,
+            "shared_blks_hit": 487227,
+            "shared_blks_read": 182,
+            "mean_exec_time": 0.3605955392070486,
+            "stddev_exec_time": 0.21067964433808167
+        },
+        {
+            "query": "SELECT c FROM sbtest1 WHERE id BETWEEN $1 AND $2 ORDER BY c",
+            "calls": 6667,
+            "rows": 666700,
+            "shared_blks_hit": 479790,
+            "shared_blks_read": 10,
+            "mean_exec_time": 0.36814226023698904,
+            "stddev_exec_time": 0.32982929611471373
+        },
+        {
+            "query": "SELECT c FROM sbtest2 WHERE id BETWEEN $1 AND $2 ORDER BY c",
+            "calls": 6722,
+            "rows": 672200,
+            "shared_blks_hit": 483208,
+            "shared_blks_read": 170,
+            "mean_exec_time": 0.36227433130020825,
+            "stddev_exec_time": 0.2450673729058154
+        },
+        {
+            "query": "SELECT c FROM sbtest7 WHERE id BETWEEN $1 AND $2 ORDER BY c",
+            "calls": 6677,
+            "rows": 667700,
+            "shared_blks_hit": 477779,
+            "shared_blks_read": 43,
+            "mean_exec_time": 0.36433530103339795,
+            "stddev_exec_time": 0.2931035785013773
+        },
+        {
+            "query": "SELECT c FROM sbtest6 WHERE id BETWEEN $1 AND $2",
+            "calls": 6850,
+            "rows": 685000,
+            "shared_blks_hit": 485620,
+            "shared_blks_read": 192,
+            "mean_exec_time": 0.2215568817518242,
+            "stddev_exec_time": 0.1801954499862195
+        },
+        {
+            "query": "SELECT c FROM sbtest4 WHERE id BETWEEN $1 AND $2",
+            "calls": 6779,
+            "rows": 677900,
+            "shared_blks_hit": 481856,
+            "shared_blks_read": 99,
+            "mean_exec_time": 0.22250875173329412,
+            "stddev_exec_time": 0.25244959595740574
+        },
+        {
+            "query": "SELECT c FROM sbtest3 WHERE id BETWEEN $1 AND $2",
+            "calls": 6844,
+            "rows": 684400,
+            "shared_blks_hit": 488384,
+            "shared_blks_read": 116,
+            "mean_exec_time": 0.2186709417007604,
+            "stddev_exec_time": 0.13107032421876247
+        },
+        {
+            "query": "SELECT c FROM sbtest5 WHERE id BETWEEN $1 AND $2",
+            "calls": 6750,
+            "rows": 675000,
+            "shared_blks_hit": 482114,
+            "shared_blks_read": 47,
+            "mean_exec_time": 0.22064132029629607,
+            "stddev_exec_time": 0.1722508267342653
+        }
+    ],
+    "execution_log": "sysbench 1.0.20 (using system LuaJIT 2.1.1700206165)\n\nRunning the test with following options:\nNumber of threads: 8\nReport intermediate results every 1 second(s)\nInitializing random number generator from current time\n\n\nInitializing worker threads...\n\nThreads started!\n\n[ 1s ] thds: 8 tps: 926.52 qps: 18638.34 (r/w/o: 13059.41/3717.97/1860.96) lat (ms,95%): 11.65 err/s: 0.00 reconn/s: 0.00\n[ 2s ] thds: 8 tps: 842.20 qps: 16827.98 (r/w/o: 11774.75/3367.81/1685.42) lat (ms,95%): 21.11 err/s: 0.00 reconn/s: 0.00\n[ 3s ] thds: 8 tps: 1109.65 qps: 22187.05 (r/w/o: 15535.14/4431.61/2220.31) lat (ms,95%): 10.09 err/s: 0.00 reconn/s: 0.00\n[ 4s ] thds: 8 tps: 1095.28 qps: 21943.67 (r/w/o: 15353.97/4399.13/2190.57) lat (ms,95%): 10.65 err/s: 0.00 reconn/s: 0.00\n[ 5s ] thds: 8 tps: 974.52 qps: 19448.44 (r/w/o: 13615.31/3885.09/1948.04) lat (ms,95%): 12.98 err/s: 0.00 reconn/s: 0.00\n[ 6s ] thds: 8 tps: 948.78 qps: 18981.66 (r/w/o: 13294.95/3788.15/1898.57) lat (ms,95%): 15.83 err/s: 0.00 reconn/s: 0.00\n[ 7s ] thds: 8 tps: 1093.39 qps: 21896.96 (r/w/o: 15322.55/4387.62/2186.79) lat (ms,95%): 11.45 err/s: 0.00 reconn/s: 0.00\n[ 8s ] thds: 8 tps: 1045.90 qps: 20891.01 (r/w/o: 14626.61/4171.60/2092.80) lat (ms,95%): 11.24 err/s: 0.00 reconn/s: 0.00\n[ 9s ] thds: 8 tps: 1048.65 qps: 21022.92 (r/w/o: 14719.04/4205.58/2098.29) lat (ms,95%): 10.09 err/s: 1.00 reconn/s: 0.00\n[ 10s ] thds: 8 tps: 1025.32 qps: 20519.47 (r/w/o: 14361.52/4105.29/2052.65) lat (ms,95%): 11.45 err/s: 1.00 reconn/s: 0.00\n[ 11s ] thds: 8 tps: 887.15 qps: 17757.53 (r/w/o: 12433.66/3546.66/1777.21) lat (ms,95%): 12.52 err/s: 0.97 reconn/s: 0.00\n[ 12s ] thds: 8 tps: 908.26 qps: 18162.11 (r/w/o: 12720.81/3624.78/1816.52) lat (ms,95%): 16.71 err/s: 0.00 reconn/s: 0.00\n[ 13s ] thds: 8 tps: 885.66 qps: 17694.14 (r/w/o: 12380.19/3542.63/1771.32) lat (ms,95%): 15.55 err/s: 0.00 reconn/s: 0.00\n[ 14s ] thds: 8 tps: 926.31 qps: 18519.23 (r/w/o: 12962.36/3704.25/1852.62) lat (ms,95%): 15.00 err/s: 0.00 reconn/s: 0.00\n[ 15s ] thds: 8 tps: 902.24 qps: 18110.79 (r/w/o: 12670.35/3633.96/1806.48) lat (ms,95%): 12.98 err/s: 0.00 reconn/s: 0.00\n[ 16s ] thds: 8 tps: 812.83 qps: 16207.75 (r/w/o: 11350.72/3230.37/1626.67) lat (ms,95%): 13.95 err/s: 0.00 reconn/s: 0.00\n[ 17s ] thds: 8 tps: 946.65 qps: 18946.01 (r/w/o: 13267.12/3785.60/1893.30) lat (ms,95%): 13.22 err/s: 0.00 reconn/s: 0.00\n[ 18s ] thds: 8 tps: 1024.29 qps: 20468.86 (r/w/o: 14330.11/4090.17/2048.59) lat (ms,95%): 10.65 err/s: 0.00 reconn/s: 0.00\n[ 19s ] thds: 8 tps: 872.71 qps: 17465.21 (r/w/o: 12217.95/3501.84/1745.42) lat (ms,95%): 13.46 err/s: 0.00 reconn/s: 0.00\n[ 20s ] thds: 8 tps: 987.95 qps: 19759.96 (r/w/o: 13834.27/3949.79/1975.90) lat (ms,95%): 11.87 err/s: 0.00 reconn/s: 0.00\n[ 21s ] thds: 8 tps: 867.68 qps: 17330.51 (r/w/o: 12130.46/3464.70/1735.35) lat (ms,95%): 14.73 err/s: 0.00 reconn/s: 0.00\n[ 22s ] thds: 8 tps: 906.61 qps: 18145.27 (r/w/o: 12707.59/3623.45/1814.23) lat (ms,95%): 14.46 err/s: 0.00 reconn/s: 0.00\n[ 23s ] thds: 8 tps: 1016.09 qps: 20388.74 (r/w/o: 14263.22/4090.35/2035.17) lat (ms,95%): 9.91 err/s: 1.00 reconn/s: 0.00\n[ 24s ] thds: 8 tps: 996.68 qps: 19911.51 (r/w/o: 13943.46/3972.71/1995.35) lat (ms,95%): 10.65 err/s: 1.00 reconn/s: 0.00\n[ 25s ] thds: 8 tps: 1020.11 qps: 20392.24 (r/w/o: 14280.57/4070.45/2041.22) lat (ms,95%): 10.09 err/s: 0.00 reconn/s: 0.00\n[ 26s ] thds: 8 tps: 890.01 qps: 17816.78 (r/w/o: 12473.81/3561.99/1780.99) lat (ms,95%): 10.84 err/s: 0.00 reconn/s: 0.00\n[ 27s ] thds: 8 tps: 766.83 qps: 15292.68 (r/w/o: 10696.81/3062.21/1533.66) lat (ms,95%): 20.37 err/s: 0.00 reconn/s: 0.00\n[ 28s ] thds: 8 tps: 932.99 qps: 18727.73 (r/w/o: 13109.81/3751.95/1865.97) lat (ms,95%): 12.30 err/s: 0.00 reconn/s: 0.00\n[ 29s ] thds: 8 tps: 873.59 qps: 17414.75 (r/w/o: 12196.23/3471.34/1747.18) lat (ms,95%): 17.32 err/s: 0.00 reconn/s: 0.00\n[ 30s ] thds: 8 tps: 826.83 qps: 16537.68 (r/w/o: 11570.67/3313.33/1653.67) lat (ms,95%): 12.98 err/s: 0.00 reconn/s: 0.00\n[ 31s ] thds: 8 tps: 872.61 qps: 17461.19 (r/w/o: 12224.53/3491.44/1745.22) lat (ms,95%): 13.95 err/s: 0.00 reconn/s: 0.00\n[ 32s ] thds: 8 tps: 908.03 qps: 18159.59 (r/w/o: 12707.41/3633.12/1819.06) lat (ms,95%): 12.98 err/s: 1.00 reconn/s: 0.00\n[ 33s ] thds: 8 tps: 696.46 qps: 13922.17 (r/w/o: 9750.43/2778.83/1392.92) lat (ms,95%): 27.66 err/s: 0.00 reconn/s: 0.00\n[ 34s ] thds: 8 tps: 894.54 qps: 17883.89 (r/w/o: 12512.62/3581.18/1790.09) lat (ms,95%): 12.75 err/s: 0.00 reconn/s: 0.00\n[ 35s ] thds: 8 tps: 927.41 qps: 18596.15 (r/w/o: 13021.71/3719.63/1854.81) lat (ms,95%): 12.52 err/s: 0.00 reconn/s: 0.00\n[ 36s ] thds: 8 tps: 942.58 qps: 18872.47 (r/w/o: 13213.02/3771.31/1888.14) lat (ms,95%): 12.75 err/s: 1.00 reconn/s: 0.00\n[ 37s ] thds: 8 tps: 923.18 qps: 18479.62 (r/w/o: 12938.54/3691.71/1849.37) lat (ms,95%): 12.75 err/s: 1.00 reconn/s: 0.00\n[ 38s ] thds: 8 tps: 958.82 qps: 19149.42 (r/w/o: 13400.50/3831.28/1917.64) lat (ms,95%): 10.65 err/s: 0.00 reconn/s: 0.00\n[ 39s ] thds: 8 tps: 882.28 qps: 17658.71 (r/w/o: 12361.00/3534.15/1763.57) lat (ms,95%): 15.00 err/s: 0.00 reconn/s: 0.00\n[ 40s ] thds: 8 tps: 1035.60 qps: 20698.93 (r/w/o: 14493.35/4134.39/2071.19) lat (ms,95%): 9.73 err/s: 0.00 reconn/s: 0.00\n[ 41s ] thds: 8 tps: 925.58 qps: 18540.60 (r/w/o: 12982.11/3706.32/1852.16) lat (ms,95%): 13.95 err/s: 0.00 reconn/s: 0.00\n[ 42s ] thds: 8 tps: 974.98 qps: 19481.51 (r/w/o: 13626.64/3905.92/1948.95) lat (ms,95%): 10.84 err/s: 0.00 reconn/s: 0.00\n[ 43s ] thds: 8 tps: 888.01 qps: 17787.30 (r/w/o: 12453.21/3556.06/1778.03) lat (ms,95%): 14.46 err/s: 0.00 reconn/s: 0.00\n[ 44s ] thds: 8 tps: 832.64 qps: 16633.75 (r/w/o: 11649.92/3316.56/1667.27) lat (ms,95%): 16.41 err/s: 0.00 reconn/s: 0.00\n[ 45s ] thds: 8 tps: 834.20 qps: 16690.05 (r/w/o: 11684.84/3336.81/1668.41) lat (ms,95%): 13.95 err/s: 0.00 reconn/s: 0.00\n[ 46s ] thds: 8 tps: 859.15 qps: 17168.04 (r/w/o: 12014.15/3436.60/1717.30) lat (ms,95%): 12.98 err/s: 0.00 reconn/s: 0.00\n[ 47s ] thds: 8 tps: 760.16 qps: 15190.08 (r/w/o: 10631.15/3037.61/1521.32) lat (ms,95%): 18.61 err/s: 0.00 reconn/s: 0.00\n[ 48s ] thds: 8 tps: 712.02 qps: 14311.32 (r/w/o: 10012.23/2875.06/1424.03) lat (ms,95%): 15.83 err/s: 0.00 reconn/s: 0.00\n[ 49s ] thds: 8 tps: 702.96 qps: 13985.15 (r/w/o: 9795.41/2783.83/1405.91) lat (ms,95%): 22.28 err/s: 0.00 reconn/s: 0.00\n[ 50s ] thds: 8 tps: 770.12 qps: 15431.43 (r/w/o: 10802.70/3087.49/1541.24) lat (ms,95%): 15.55 err/s: 0.00 reconn/s: 0.00\n[ 51s ] thds: 8 tps: 721.15 qps: 14397.15 (r/w/o: 10081.19/2873.65/1442.30) lat (ms,95%): 17.63 err/s: 0.00 reconn/s: 0.00\n[ 52s ] thds: 8 tps: 756.68 qps: 15128.59 (r/w/o: 10582.49/3032.74/1513.36) lat (ms,95%): 15.27 err/s: 0.00 reconn/s: 0.00\n[ 53s ] thds: 8 tps: 782.12 qps: 15671.26 (r/w/o: 10976.55/3129.48/1565.24) lat (ms,95%): 15.00 err/s: 0.00 reconn/s: 0.00\n[ 54s ] thds: 8 tps: 766.19 qps: 15275.52 (r/w/o: 10686.43/3059.73/1529.36) lat (ms,95%): 18.95 err/s: 0.00 reconn/s: 0.00\n[ 55s ] thds: 8 tps: 950.14 qps: 19046.75 (r/w/o: 13341.93/3802.55/1902.27) lat (ms,95%): 11.65 err/s: 0.00 reconn/s: 0.00\n[ 56s ] thds: 8 tps: 800.19 qps: 16016.86 (r/w/o: 11204.71/3211.76/1600.39) lat (ms,95%): 17.01 err/s: 0.00 reconn/s: 0.00\n[ 57s ] thds: 8 tps: 872.70 qps: 17408.06 (r/w/o: 12187.84/3474.81/1745.41) lat (ms,95%): 13.22 err/s: 0.00 reconn/s: 0.00\n[ 58s ] thds: 8 tps: 858.31 qps: 17187.21 (r/w/o: 12021.35/3449.25/1716.62) lat (ms,95%): 13.70 err/s: 0.00 reconn/s: 0.00\n[ 59s ] thds: 8 tps: 865.66 qps: 17297.29 (r/w/o: 12110.30/3457.66/1729.33) lat (ms,95%): 14.73 err/s: 0.00 reconn/s: 0.00\n[ 60s ] thds: 8 tps: 820.30 qps: 16405.07 (r/w/o: 11488.25/3276.22/1640.61) lat (ms,95%): 14.46 err/s: 0.00 reconn/s: 0.00\nSQL statistics:\n    queries performed:\n        read:                            754264\n        write:                           215470\n        other:                           107770\n        total:                           1077504\n    transactions:                        53868  (897.56 per sec.)\n    queries:                             1077504 (17953.63 per sec.)\n    ignored errors:                      8      (0.13 per sec.)\n    reconnects:                          0      (0.00 per sec.)\n\nGeneral statistics:\n    total time:                          60.0142s\n    total number of events:              53868\n\nLatency (ms):\n         min:                                    3.14\n         avg:                                    8.91\n         max:                                  139.06\n         95th percentile:                       13.95\n         sum:                               479863.78\n\nThreads fairness:\n    events (avg/stddev):           6733.5000/18.62\n    execution time (avg/stddev):   59.9830/0.00"
+}

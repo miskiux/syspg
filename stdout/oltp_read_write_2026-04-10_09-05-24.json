@@ -1,0 +1,217 @@
+{
+    "storage_usage": "<psycopg.Cursor [TUPLES_OK] [BAD] at 0x7fe2fac85790>",
+    "metadata": {
+        "test": "oltp_read_write",
+        "threads": "8",
+        "tables": "1",
+        "table-size": "10000",
+        "time": "60",
+        "report-interval": "1"
+    },
+    "sysb_metrics": {
+        "tps_count": 48559,
+        "tps_rate": 809.22,
+        "qps_count": 981785,
+        "qps_rate": 16361.21,
+        "errors_count": 590,
+        "errors_rate": 9.83,
+        "reconnects_count": 0,
+        "reconnects_rate": 0.0,
+        "avg_lat": 9.88,
+        "p95_lat": 13.46,
+        "max_lat": 3012.97,
+        "min_lat": 2.74,
+        "sum_lat": 479854.33,
+        "total_events": 48559,
+        "read": 688086,
+        "write": 194224,
+        "other": 99475,
+        "events_avg": 6069.875,
+        "events_stddev": 27.14,
+        "execution_avg": 59.9818,
+        "execution_stddev": 0.0
+    },
+    "pg_ss": [
+        {
+            "query": "UPDATE sbtest1 SET k=k+$2 WHERE id=$1",
+            "calls": 49149,
+            "rows": 48521,
+            "shared_blks_hit": 510923,
+            "shared_blks_read": 0,
+            "mean_exec_time": 0.7722216037762752,
+            "stddev_exec_time": 28.62732635604566
+        },
+        {
+            "query": "DELETE FROM sbtest1 WHERE id=$1",
+            "calls": 49137,
+            "rows": 48559,
+            "shared_blks_hit": 205436,
+            "shared_blks_read": 0,
+            "mean_exec_time": 0.49307725080896386,
+            "stddev_exec_time": 22.655369963987305
+        },
+        {
+            "query": "UPDATE sbtest1 SET c=$1 WHERE id=$2",
+            "calls": 49146,
+            "rows": 48585,
+            "shared_blks_hit": 261573,
+            "shared_blks_read": 0,
+            "mean_exec_time": 0.48248752437634895,
+            "stddev_exec_time": 20.259206397225757
+        },
+        {
+            "query": "SELECT DISTINCT c FROM sbtest1 WHERE id BETWEEN $1 AND $2 ORDER BY c",
+            "calls": 49149,
+            "rows": 4914900,
+            "shared_blks_hit": 4841440,
+            "shared_blks_read": 0,
+            "mean_exec_time": 0.38006719638243025,
+            "stddev_exec_time": 0.3278857669207284
+        },
+        {
+            "query": "SELECT c FROM sbtest1 WHERE id BETWEEN $1 AND $2 ORDER BY c",
+            "calls": 49149,
+            "rows": 4914900,
+            "shared_blks_hit": 4839643,
+            "shared_blks_read": 0,
+            "mean_exec_time": 0.34582015241409175,
+            "stddev_exec_time": 0.2235952521660099
+        },
+        {
+            "query": "SELECT c FROM sbtest1 WHERE id BETWEEN $1 AND $2",
+            "calls": 49149,
+            "rows": 4914900,
+            "shared_blks_hit": 4850179,
+            "shared_blks_read": 0,
+            "mean_exec_time": 0.21158743073104236,
+            "stddev_exec_time": 0.2216812634402046
+        },
+        {
+            "query": "SELECT c FROM sbtest1 WHERE id=$1",
+            "calls": 491490,
+            "rows": 491490,
+            "shared_blks_hit": 1505832,
+            "shared_blks_read": 0,
+            "mean_exec_time": 0.014236848110846639,
+            "stddev_exec_time": 0.05941259236432592
+        },
+        {
+            "query": "SELECT SUM(k) FROM sbtest1 WHERE id BETWEEN $1 AND $2",
+            "calls": 49149,
+            "rows": 49149,
+            "shared_blks_hit": 4843082,
+            "shared_blks_read": 0,
+            "mean_exec_time": 0.10535707888258258,
+            "stddev_exec_time": 0.14626448883573653
+        },
+        {
+            "query": "INSERT INTO sbtest1 (id, k, c, pad) VALUES ($1, $2, $3, $4)",
+            "calls": 48559,
+            "rows": 48559,
+            "shared_blks_hit": 303953,
+            "shared_blks_read": 0,
+            "mean_exec_time": 0.03159907364237292,
+            "stddev_exec_time": 0.05172897572578321
+        },
+        {
+            "query": "SELECT name, setting, COALESCE(unit, $1), short_desc, vartype FROM pg_settings WHERE vartype IN ($2, $3, $4) AND name != $5",
+            "calls": 62,
+            "rows": 18166,
+            "shared_blks_hit": 0,
+            "shared_blks_read": 0,
+            "mean_exec_time": 2.4861210967741942,
+            "stddev_exec_time": 1.4909622939181275
+        },
+        {
+            "query": "SELECT pg_database_size($1)",
+            "calls": 186,
+            "rows": 186,
+            "shared_blks_hit": 372,
+            "shared_blks_read": 0,
+            "mean_exec_time": 0.7893700483870967,
+            "stddev_exec_time": 0.44882673261040745
+        },
+        {
+            "query": "SELECT \n  m.queryid::text,\n  substring(m.query from $1 for $2) AS query,\n  m.total_exec_time::float,\n  m.min_exec_time::float,\n  m.max_exec_time::float,\n  m.mean_exec_time::float,\n  m.stddev_exec_time::float\nFROM pg_stat_monitor m\nWHERE m.bucket_start_time = (SELECT max(bucket_start_time) FROM pg_stat_monitor WHERE calls > $3)\nAND m.calls > $4\nORDER BY m.total_exec_time DESC\nLIMIT $5",
+            "calls": 62,
+            "rows": 619,
+            "shared_blks_hit": 0,
+            "shared_blks_read": 0,
+            "mean_exec_time": 1.8808844193548395,
+            "stddev_exec_time": 4.376574755045688
+        },
+        {
+            "query": "SELECT\n\t\tcurrent_database() datname,\n\t\tschemaname,\n\t\trelname,\n\t\tseq_scan,\n\t\tseq_tup_read,\n\t\tidx_scan,\n\t\tidx_tup_fetch,\n\t\tn_tup_ins,\n\t\tn_tup_upd,\n\t\tn_tup_del,\n\t\tn_tup_hot_upd,\n\t\tn_live_tup,\n\t\tn_dead_tup,\n\t\tn_mod_since_analyze,\n\t\tCOALESCE(last_vacuum, $1) as last_vacuum,\n\t\tCOALESCE(last_autovacuum, $2) as last_autovacuum,\n\t\tCOALESCE(last_analyze, $3) as last_analyze,\n\t\tCOALESCE(last_autoanalyze, $4) as last_autoanalyze,\n\t\tvacuum_count,\n\t\tautovacuum_count,\n\t\tanalyze_count,\n\t\tautoanalyze_count,\n\t\tpg_total_relation_size(relid) as total_size\n\tFROM\n\t\tpg_stat_user_tables",
+            "calls": 62,
+            "rows": 62,
+            "shared_blks_hit": 5017,
+            "shared_blks_read": 0,
+            "mean_exec_time": 0.8789060322580641,
+            "stddev_exec_time": 1.603357649687468
+        },
+        {
+            "query": "SELECT\n\t\tcurrent_database() datname,\n\t\tschemaname,\n\t\trelname,\n\t\theap_blks_read,\n\t\theap_blks_hit,\n\t\tidx_blks_read,\n\t\tidx_blks_hit,\n\t\ttoast_blks_read,\n\t\ttoast_blks_hit,\n\t\ttidx_blks_read,\n\t\ttidx_blks_hit\n\tFROM pg_statio_user_tables",
+            "calls": 62,
+            "rows": 62,
+            "shared_blks_hit": 1550,
+            "shared_blks_read": 0,
+            "mean_exec_time": 0.5674312419354837,
+            "stddev_exec_time": 1.7615822558126417
+        },
+        {
+            "query": "SELECT \n\t\t  pg_database.datname as datname,\n\t\t  tmp.mode as mode,\n\t\t  COALESCE(count, $1) as count \n\t\tFROM \n\t\t  (\n\t\t    VALUES \n\t\t      ($2), \n\t\t      ($3), \n\t\t      ($4), \n\t\t      ($5), \n\t\t      ($6), \n\t\t      ($7), \n\t\t      ($8), \n\t\t      ($9), \n\t\t      ($10)\n\t\t  ) AS tmp(mode)\n\t\t  CROSS JOIN pg_database \n\t\t  LEFT JOIN (\n\t\t    SELECT \n\t\t      database, \n\t\t      lower(mode) AS mode, \n\t\t      count(*) AS count \n\t\t    FROM \n\t\t      pg_locks \n\t\t    WHERE \n\t\t      database IS NOT NULL \n\t\t    GROUP BY \n\t\t      database, \n\t\t      lower(mode)\n\t\t  ) AS tmp2 ON tmp.mode = tmp2.mode \n\t\t  and pg_database.oid = tmp2.database \n\t\tORDER BY \n\t\t  1",
+            "calls": 62,
+            "rows": 1674,
+            "shared_blks_hit": 248,
+            "shared_blks_read": 0,
+            "mean_exec_time": 0.43800461290322584,
+            "stddev_exec_time": 0.2851120532882984
+        },
+        {
+            "query": "SELECT\n\t\t\t\tpg_database.datname,\n\t\t\t\ttmp.state,\n\t\t\t\ttmp2.usename,\n\t\t\t\ttmp2.application_name,\n\t\t\t\ttmp2.backend_type,\n\t\t\t\ttmp2.wait_event_type,\n\t\t\t\ttmp2.wait_event,\n\t\t\t\tCOALESCE(count,$1) as count,\n\t\t\t\tCOALESCE(max_tx_duration,$2) as max_tx_duration\n\t\t\tFROM\n\t\t\t\t(\n\t\t\t\t  VALUES ($3),\n\t\t\t\t  \t\t ($4),\n\t\t\t\t  \t\t ($5),\n\t\t\t\t  \t\t ($6),\n\t\t\t\t  \t\t ($7),\n\t\t\t\t  \t\t ($8)\n\t\t\t\t) AS tmp(state) CROSS JOIN pg_database\n\t\t\tLEFT JOIN\n\t\t\t(\n\t\t\t\tSELECT\n\t\t\t\t\tdatname,\n\t\t\t\t\tstate,\n\t\t\t\t\tusename,\n\t\t\t\t\tapplication_name,\n\t\t\t\t\tbackend_type,\n\t\t\t\t\twait_event_type,\n\t\t\t\t\twait_event,\n\t\t\t\t\tcount(*) AS count,\n\t\t\t\t\tMAX(EXTRACT($9 FROM now() - xact_start))::float AS max_tx_duration\n\t\t\t\tFROM pg_stat_activity\n\t\t\t\tGROUP BY datname,state,usename,application_name,backend_type,wait_event_type,wait_event) AS tmp2\n\t\t\t\tON tmp.state = tmp2.state AND pg_database.datname = tmp2.datname",
+            "calls": 62,
+            "rows": 1274,
+            "shared_blks_hit": 186,
+            "shared_blks_read": 0,
+            "mean_exec_time": 0.21389459677419356,
+            "stddev_exec_time": 0.08895929010770288
+        },
+        {
+            "query": "ROLLBACK",
+            "calls": 590,
+            "rows": 0,
+            "shared_blks_hit": 0,
+            "shared_blks_read": 0,
+            "mean_exec_time": 0.019939862711864417,
+            "stddev_exec_time": 0.02098225820390621
+        },
+        {
+            "query": "SELECT\n\t\t\tCOUNT(*) AS segments,\n\t\t\tSUM(size) AS size\n\t\tFROM pg_ls_waldir()\n\t\tWHERE name ~ $1",
+            "calls": 62,
+            "rows": 62,
+            "shared_blks_hit": 0,
+            "shared_blks_read": 0,
+            "mean_exec_time": 0.12271908064516131,
+            "stddev_exec_time": 0.1207760131763912
+        },
+        {
+            "query": "SELECT datid,datname,numbackends,xact_commit,xact_rollback,blks_read,blks_hit,tup_returned,tup_fetched,tup_inserted,tup_updated,tup_deleted,conflicts,temp_files,temp_bytes,deadlocks,blk_read_time,blk_write_time,stats_reset,active_time FROM pg_stat_database",
+            "calls": 62,
+            "rows": 248,
+            "shared_blks_hit": 62,
+            "shared_blks_read": 0,
+            "mean_exec_time": 0.08231690322580645,
+            "stddev_exec_time": 0.17374639772545294
+        },
+        {
+            "query": "SELECT *,\n\t\t\t\t(case pg_is_in_recovery() when $1 then pg_last_wal_receive_lsn() else pg_current_wal_lsn() end) AS pg_current_wal_lsn,\n\t\t\t\t(case pg_is_in_recovery() when $2 then pg_wal_lsn_diff(pg_last_wal_receive_lsn(), pg_lsn($3))::float else pg_wal_lsn_diff(pg_current_wal_lsn(), pg_lsn($4))::float end) AS pg_current_wal_lsn_bytes,\n\t\t\t\t(case pg_is_in_recovery() when $5 then pg_wal_lsn_diff(pg_last_wal_receive_lsn(), replay_lsn)::float else pg_wal_lsn_diff(pg_current_wal_lsn(), replay_lsn)::float end) AS pg_wal_lsn_diff\n\t\t\tFROM pg_stat_replication",
+            "calls": 62,
+            "rows": 0,
+            "shared_blks_hit": 0,
+            "shared_blks_read": 0,
+            "mean_exec_time": 0.07824312903225807,
+            "stddev_exec_time": 0.03678796571526104
+        }
+    ],
+    "execution_log": "sysbench 1.0.20 (using system LuaJIT 2.1.1700206165)\n\nRunning the test with following options:\nNumber of threads: 8\nReport intermediate results every 1 second(s)\nInitializing random number generator from current time\n\n\nInitializing worker threads...\n\nThreads started!\n\n[ 1s ] thds: 8 tps: 1201.09 qps: 24277.89 (r/w/o: 17018.54/4797.37/2461.98) lat (ms,95%): 9.22 err/s: 8.97 reconn/s: 0.00\n[ 2s ] thds: 8 tps: 1124.64 qps: 22858.04 (r/w/o: 16031.15/4506.57/2320.32) lat (ms,95%): 10.46 err/s: 22.01 reconn/s: 0.00\n[ 3s ] thds: 8 tps: 1142.30 qps: 23012.96 (r/w/o: 16124.18/4566.18/2322.60) lat (ms,95%): 10.09 err/s: 7.00 reconn/s: 0.00\n[ 4s ] thds: 8 tps: 1266.65 qps: 25631.88 (r/w/o: 17965.01/5070.59/2596.28) lat (ms,95%): 8.74 err/s: 17.00 reconn/s: 0.00\n[ 5s ] thds: 8 tps: 1060.23 qps: 21520.63 (r/w/o: 15081.24/4258.92/2180.47) lat (ms,95%): 12.08 err/s: 15.00 reconn/s: 0.00\n[ 6s ] thds: 8 tps: 1131.86 qps: 22837.13 (r/w/o: 16010.98/4507.43/2318.71) lat (ms,95%): 9.91 err/s: 14.00 reconn/s: 0.00\n[ 7s ] thds: 8 tps: 1185.41 qps: 23993.03 (r/w/o: 16812.61/4747.63/2432.79) lat (ms,95%): 9.91 err/s: 15.99 reconn/s: 0.00\n[ 8s ] thds: 8 tps: 1115.37 qps: 22573.79 (r/w/o: 15822.48/4473.51/2277.80) lat (ms,95%): 9.73 err/s: 13.02 reconn/s: 0.00\n[ 9s ] thds: 8 tps: 1142.73 qps: 22956.64 (r/w/o: 16081.24/4546.94/2328.46) lat (ms,95%): 9.56 err/s: 7.00 reconn/s: 0.00\n[ 10s ] thds: 8 tps: 698.47 qps: 14287.16 (r/w/o: 10020.39/2822.86/1443.90) lat (ms,95%): 22.28 err/s: 16.99 reconn/s: 0.00\n[ 11s ] thds: 8 tps: 1073.39 qps: 21754.81 (r/w/o: 15259.48/4288.54/2206.79) lat (ms,95%): 10.46 err/s: 17.01 reconn/s: 0.00\n[ 12s ] thds: 8 tps: 1050.77 qps: 21351.26 (r/w/o: 14966.68/4226.06/2158.52) lat (ms,95%): 11.87 err/s: 18.00 reconn/s: 0.00\n[ 13s ] thds: 8 tps: 1136.86 qps: 22950.09 (r/w/o: 16077.96/4549.42/2322.70) lat (ms,95%): 9.22 err/s: 13.00 reconn/s: 0.00\n[ 14s ] thds: 8 tps: 1067.67 qps: 21606.60 (r/w/o: 15146.54/4275.69/2184.38) lat (ms,95%): 10.65 err/s: 12.01 reconn/s: 0.00\n[ 15s ] thds: 8 tps: 643.63 qps: 13033.41 (r/w/o: 9142.68/2565.51/1325.23) lat (ms,95%): 32.53 err/s: 8.99 reconn/s: 0.00\n[ 16s ] thds: 8 tps: 83.02 qps: 1659.30 (r/w/o: 1149.21/340.06/170.03) lat (ms,95%): 943.16 err/s: 2.00 reconn/s: 0.00\n[ 17s ] thds: 8 tps: 926.44 qps: 18706.59 (r/w/o: 13107.99/3712.77/1885.83) lat (ms,95%): 15.27 err/s: 9.98 reconn/s: 0.00\n[ 18s ] thds: 8 tps: 998.70 qps: 20269.26 (r/w/o: 14225.00/3987.80/2056.45) lat (ms,95%): 17.63 err/s: 16.01 reconn/s: 0.00\n[ 19s ] thds: 8 tps: 772.64 qps: 15581.59 (r/w/o: 10910.81/3092.56/1578.22) lat (ms,95%): 22.28 err/s: 7.99 reconn/s: 0.00\n[ 20s ] thds: 8 tps: 510.24 qps: 10367.24 (r/w/o: 7267.70/2048.99/1050.56) lat (ms,95%): 33.12 err/s: 8.02 reconn/s: 0.00\n[ 21s ] thds: 8 tps: 681.46 qps: 13781.10 (r/w/o: 9657.60/2714.90/1408.61) lat (ms,95%): 29.72 err/s: 5.96 reconn/s: 0.00\n[ 22s ] thds: 8 tps: 858.22 qps: 17286.23 (r/w/o: 12112.73/3412.77/1760.72) lat (ms,95%): 15.55 err/s: 8.05 reconn/s: 0.00\n[ 23s ] thds: 8 tps: 1076.81 qps: 21676.37 (r/w/o: 15183.47/4295.24/2197.66) lat (ms,95%): 10.46 err/s: 9.01 reconn/s: 0.00\n[ 24s ] thds: 8 tps: 1017.05 qps: 20447.09 (r/w/o: 14318.77/4052.22/2076.11) lat (ms,95%): 11.04 err/s: 7.00 reconn/s: 0.00\n[ 25s ] thds: 8 tps: 401.17 qps: 8136.51 (r/w/o: 5714.47/1603.69/818.35) lat (ms,95%): 11.87 err/s: 3.00 reconn/s: 0.00\n[ 26s ] thds: 8 tps: 501.75 qps: 10166.93 (r/w/o: 7122.45/2003.00/1041.48) lat (ms,95%): 17.63 err/s: 9.00 reconn/s: 0.00\n[ 27s ] thds: 8 tps: 102.00 qps: 2067.05 (r/w/o: 1456.04/403.01/208.01) lat (ms,95%): 9.06 err/s: 0.00 reconn/s: 0.00\n[ 28s ] thds: 8 tps: 23.01 qps: 479.16 (r/w/o: 336.11/94.03/49.02) lat (ms,95%): 1013.60 err/s: 1.00 reconn/s: 0.00\n[ 29s ] thds: 8 tps: 10.00 qps: 217.03 (r/w/o: 154.02/42.01/21.00) lat (ms,95%): 2009.23 err/s: 1.00 reconn/s: 0.00\n[ 30s ] thds: 8 tps: 895.20 qps: 18136.81 (r/w/o: 12709.66/3589.80/1837.36) lat (ms,95%): 10.84 err/s: 12.99 reconn/s: 0.00\n[ 31s ] thds: 8 tps: 1063.96 qps: 21508.29 (r/w/o: 15074.50/4255.86/2177.93) lat (ms,95%): 11.04 err/s: 15.00 reconn/s: 0.00\n[ 32s ] thds: 8 tps: 930.37 qps: 18884.82 (r/w/o: 13242.51/3724.49/1917.82) lat (ms,95%): 10.65 err/s: 15.02 reconn/s: 0.00\n[ 33s ] thds: 8 tps: 886.93 qps: 17969.28 (r/w/o: 12592.78/3557.70/1818.80) lat (ms,95%): 13.95 err/s: 12.98 reconn/s: 0.00\n[ 34s ] thds: 8 tps: 889.75 qps: 17912.96 (r/w/o: 12545.47/3556.00/1811.49) lat (ms,95%): 15.83 err/s: 8.00 reconn/s: 0.00\n[ 35s ] thds: 8 tps: 977.51 qps: 19740.30 (r/w/o: 13836.22/3903.04/2001.04) lat (ms,95%): 10.46 err/s: 10.01 reconn/s: 0.00\n[ 36s ] thds: 8 tps: 781.13 qps: 15851.66 (r/w/o: 11122.86/3125.52/1603.27) lat (ms,95%): 11.45 err/s: 10.00 reconn/s: 0.00\n[ 37s ] thds: 8 tps: 329.91 qps: 6657.11 (r/w/o: 4654.68/1319.63/682.81) lat (ms,95%): 11.24 err/s: 6.00 reconn/s: 0.00\n[ 38s ] thds: 8 tps: 96.97 qps: 1987.43 (r/w/o: 1405.60/386.89/194.94) lat (ms,95%): 9.91 err/s: 0.00 reconn/s: 0.00\n[ 39s ] thds: 8 tps: 182.05 qps: 3660.01 (r/w/o: 2562.71/726.20/371.10) lat (ms,95%): 34.33 err/s: 1.00 reconn/s: 0.00\n[ 40s ] thds: 8 tps: 680.78 qps: 13735.62 (r/w/o: 9614.93/2727.13/1393.56) lat (ms,95%): 11.04 err/s: 7.00 reconn/s: 0.00\n[ 41s ] thds: 8 tps: 1039.28 qps: 20911.57 (r/w/o: 14647.90/4146.10/2117.56) lat (ms,95%): 11.04 err/s: 7.00 reconn/s: 0.00\n[ 42s ] thds: 8 tps: 869.70 qps: 17571.93 (r/w/o: 12320.75/3459.81/1791.38) lat (ms,95%): 14.21 err/s: 11.00 reconn/s: 0.00\n[ 43s ] thds: 8 tps: 890.35 qps: 18068.00 (r/w/o: 12660.91/3576.39/1830.71) lat (ms,95%): 15.00 err/s: 14.01 reconn/s: 0.00\n[ 44s ] thds: 8 tps: 907.96 qps: 18372.25 (r/w/o: 12874.47/3647.85/1849.92) lat (ms,95%): 19.29 err/s: 10.00 reconn/s: 0.00\n[ 45s ] thds: 8 tps: 980.12 qps: 19791.33 (r/w/o: 13867.64/3916.46/2007.24) lat (ms,95%): 11.65 err/s: 12.00 reconn/s: 0.00\n[ 46s ] thds: 8 tps: 215.01 qps: 4381.29 (r/w/o: 3088.20/851.06/442.03) lat (ms,95%): 27.17 err/s: 4.00 reconn/s: 0.00\n[ 47s ] thds: 8 tps: 757.80 qps: 15241.91 (r/w/o: 10667.14/3027.19/1547.58) lat (ms,95%): 10.84 err/s: 7.00 reconn/s: 0.00\n[ 48s ] thds: 8 tps: 945.39 qps: 19065.96 (r/w/o: 13368.58/3775.58/1921.80) lat (ms,95%): 11.24 err/s: 7.00 reconn/s: 0.00\n[ 49s ] thds: 8 tps: 88.08 qps: 1780.57 (r/w/o: 1246.10/352.31/182.16) lat (ms,95%): 977.74 err/s: 3.00 reconn/s: 0.00\n[ 50s ] thds: 8 tps: 1005.82 qps: 20218.31 (r/w/o: 14156.42/4018.29/2043.61) lat (ms,95%): 11.87 err/s: 5.99 reconn/s: 0.00\n[ 51s ] thds: 8 tps: 1088.96 qps: 22029.14 (r/w/o: 15437.40/4355.83/2235.91) lat (ms,95%): 9.73 err/s: 13.00 reconn/s: 0.00\n[ 52s ] thds: 8 tps: 1057.16 qps: 21426.23 (r/w/o: 15025.27/4237.64/2163.33) lat (ms,95%): 10.09 err/s: 16.00 reconn/s: 0.00\n[ 53s ] thds: 8 tps: 1074.62 qps: 21764.22 (r/w/o: 15255.55/4308.46/2200.21) lat (ms,95%): 9.73 err/s: 14.99 reconn/s: 0.00\n[ 54s ] thds: 8 tps: 945.52 qps: 19107.50 (r/w/o: 13389.36/3770.07/1948.07) lat (ms,95%): 16.12 err/s: 12.01 reconn/s: 0.00\n[ 55s ] thds: 8 tps: 990.83 qps: 20126.65 (r/w/o: 14112.65/3974.34/2039.66) lat (ms,95%): 11.65 err/s: 16.00 reconn/s: 0.00\n[ 56s ] thds: 8 tps: 948.01 qps: 19066.27 (r/w/o: 13357.19/3787.05/1922.03) lat (ms,95%): 11.87 err/s: 4.00 reconn/s: 0.00\n[ 57s ] thds: 8 tps: 127.96 qps: 2611.12 (r/w/o: 1829.38/516.83/264.91) lat (ms,95%): 877.61 err/s: 4.00 reconn/s: 0.00\n[ 58s ] thds: 8 tps: 1043.38 qps: 21080.68 (r/w/o: 14769.38/4176.52/2134.78) lat (ms,95%): 10.09 err/s: 14.01 reconn/s: 0.00\n[ 59s ] thds: 8 tps: 876.80 qps: 17753.98 (r/w/o: 12451.18/3498.21/1804.59) lat (ms,95%): 16.41 err/s: 11.00 reconn/s: 0.00\n[ 60s ] thds: 8 tps: 978.97 qps: 19802.43 (r/w/o: 13871.60/3928.89/2001.94) lat (ms,95%): 11.24 err/s: 12.00 reconn/s: 0.00\nSQL statistics:\n    queries performed:\n        read:                            688086\n        write:                           194224\n        other:                           99475\n        total:                           981785\n    transactions:                        48559  (809.22 per sec.)\n    queries:                             981785 (16361.21 per sec.)\n    ignored errors:                      590    (9.83 per sec.)\n    reconnects:                          0      (0.00 per sec.)\n\nGeneral statistics:\n    total time:                          60.0056s\n    total number of events:              48559\n\nLatency (ms):\n         min:                                    2.74\n         avg:                                    9.88\n         max:                                 3012.97\n         95th percentile:                       13.46\n         sum:                               479854.33\n\nThreads fairness:\n    events (avg/stddev):           6069.8750/27.14\n    execution time (avg/stddev):   59.9818/0.00"
+}

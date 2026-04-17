@@ -18,8 +18,8 @@ volumes:
 services:
   sysbench-tool:
     build:
-      context: ./sysbench
-      dockerfile: Dockerfile
+      context: ./
+      dockerfile: Dockerfile.sysbench
     image: syspg/sysbench:latest
     networks: [ default ]
     volumes:
@@ -29,8 +29,8 @@ services:
   postgres:
     container_name: postgres
     build:
-      context: ./postgres
-      dockerfile: Dockerfile
+      context: ./
+      dockerfile: Dockerfile.postgres
     restart: unless-stopped
     networks: [ default ]
     ports:
@@ -74,7 +74,7 @@ services:
     ports:
       - "9187:9187"
     volumes:
-      - ./metrics/queries.yaml:/etc/postgres_exporter/queries.yaml
+      - ./queries.yaml:/etc/postgres_exporter/queries.yaml
     command:
       - "--extend.query-path=/etc/postgres_exporter/queries.yaml"
     environment:
@@ -92,7 +92,7 @@ services:
     ports:
       - "9090:9090"
     volumes:
-      - ./metrics/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
       - prometheusdata:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
@@ -114,8 +114,8 @@ services:
       - GF_USERS_ALLOW_SIGN_UP=false
     volumes:
       - grafanadata:/var/lib/grafana
-      - ./metrics/grafana/datasources:/etc/grafana/provisioning/datasources:ro
-      - ./metrics/grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - ./grafana/datasources:/etc/grafana/provisioning/datasources:ro
+      - ./grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
     depends_on:
       - prometheus
 
